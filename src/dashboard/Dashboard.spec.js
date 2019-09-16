@@ -13,3 +13,12 @@ it('defaults to unlocked and open', ()=>{
     getByText(/open/i);
     getByText(/unlocked/i);
 })
+
+it('cannot be closed or opened if it is locked', () => {
+    const { getByText } = render( <Dashboard /> );
+    const lockButton = getByText(/lock gate/i);
+    const closeButton = getByText(/close gate/i);
+    fireEvent.click(closeButton);
+    fireEvent.click(lockButton);
+    expect(closeButton.disabled).toBe(true); 
+  });
