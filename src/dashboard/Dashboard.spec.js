@@ -2,6 +2,8 @@ import Dashboard from './Dashboard';
 import React from 'react';
 import { render, fireEvent } from "@testing-library/react";
 
+//Snapshot test
+
 test('should match snapshot', () => {
     expect (render(<Dashboard />)).toMatchSnapshot();
 });
@@ -21,4 +23,14 @@ it('cannot be closed or opened if it is locked', () => {
     fireEvent.click(closeButton);
     fireEvent.click(lockButton);
     expect(closeButton.disabled).toBe(true); 
+  });
+
+  //Dashboard test - shows control and display
+
+  it('shows the controls and display', () => {
+    const { getByText } = render( <Dashboard /> );
+    getByText(/open/i);
+    getByText(/unlocked/i);
+    getByText(/lock gate/i);
+    getByText(/close gate/i);
   });
